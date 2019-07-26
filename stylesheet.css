@@ -1,0 +1,44 @@
+body,
+h1 {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body,
+html {
+    background-color: #ffffff;
+    height: 100%
+}
+
+.bgimg {
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    font-size: min(10vw, 48px);
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#canvasMain {
+    min-width: 1024px;
+    width: 100%;
+    min-height: 768px;
+    height: 100%;
+}
+
+.button {
+    margin: auto;
+    font-size: 28px;
+    color: #000000;
+    background-color: #ffffff;
+}
