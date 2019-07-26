@@ -15,11 +15,13 @@ function setup() {
     canvasMain.parent('canvasMain');
     background(0, 0, 0);
 
-    video = createCapture(VIDEO);
-    video.hide();
+    //video = createCapture(VIDEO);
+    //video.hide();
     background(0);
 }
 
 function draw() {
-    image(video, 0, 0);
+    //image(video, 112, 0, 800, 600);
+    fill(255);
+    rect(112, 0, 800, 600);
 }
