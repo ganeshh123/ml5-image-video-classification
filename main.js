@@ -10,7 +10,7 @@ let video;
 
 let mobilenet;
 
-let label = 'Please wait, connecting...';
+let label = '';
 let result = ' ';
 let prob;
 
@@ -40,6 +40,7 @@ function setup() {
 
 function draw() {
 
+    text(label, 100, 700);
 
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
@@ -57,6 +58,7 @@ function draw() {
 function toggleImage() {
     video.hide();
     clear();
+    mobilenet = null;
     background(0, 0, 0);
     label = "Please wait, connecting...";
     mode = 1;
