@@ -1,10 +1,14 @@
-var canvasDOM;
-var canvasMain;
-var canvasMainWidth;
-var canvasMainHeight;
-var img;
-var mode = 0;
-var video;
+let canvasDOM;
+let canvasMain;
+let canvasMainWidth;
+let canvasMainHeight;
+let img;
+let mode = 0;
+let video;
+let label = '';
+let mobilenet
+let result = '';
+let prob;
 
 
 function setup() {
@@ -21,16 +25,16 @@ function setup() {
     if (mode == 0) {
         video = createCapture(VIDEO);
         video.hide();
+        label = "Please wait, connecting...";
+        mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
     }
-
-    background(0);
-
 }
 
 function draw() {
 
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
+        text(label, 100, 700);
     }
 
     if (mode == 1) {
@@ -48,6 +52,7 @@ function toggleImage() {
     video.hide();
     clear();
     background(0, 0, 0);
+    label = "Please wait, connecting...";
     mode = 1;
     dropzone = rect(112, 0, 800, 600);
     dropzone.fill(255);
@@ -56,6 +61,7 @@ function toggleImage() {
 function toggleCamera() {
     clear();
     background(0, 0, 0);
+    label = "Please wait, connecting...";
     mode = 0;
     video = createCapture(VIDEO);
     video.hide();
@@ -65,5 +71,32 @@ function gotFile(file) {
     mode = 1;
     video.hide();
     img = createImg(file.data).hide();
-    img.resize(800, 0);
+    if (img) {
+        mobilenet = ml5.imageClassifier('MobileNet', img, modelReady);
+    }
+}
+
+function modelReady() {
+    console.log('Model Ready');
+    mobilenet.classify(gotResults);
+
+    if (mode == 0) {
+        label = 'Place object in camera view';
+    }
+}
+
+function gotResults(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        result = results[0].label;
+        prob = results[0].confidence;
+        label = "Result: " + label + " with a probability of " + prob;
+
+        if (mode == 0) {
+            mobilenet.classify(gotResults);
+        }
+
+    }
+
 }
