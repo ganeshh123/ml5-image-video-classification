@@ -2,12 +2,16 @@ let canvasDOM;
 let canvasMain;
 let canvasMainWidth;
 let canvasMainHeight;
-let img;
+
 let mode = 0;
+
+let img;
 let video;
-let label = '';
-let mobilenet
-let result = '';
+
+let mobilenet;
+
+let label = 'Please wait, connecting...';
+let result = ' ';
 let prob;
 
 
@@ -22,6 +26,10 @@ function setup() {
     canvasMain.drop(gotFile);
     background(0, 0, 0);
 
+    textSize(64);
+    text(label, 100, 700);
+    fill(255);
+
     if (mode == 0) {
         video = createCapture(VIDEO);
         video.hide();
@@ -32,15 +40,13 @@ function setup() {
 
 function draw() {
 
+
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
         text(label, 100, 700);
     }
 
     if (mode == 1) {
-        textSize(64);
-        text('DRAG AN IMAGE HERE', 100, 700);
-        fill(255);
         if (img) {
             image(img, 112, 0, 800, 600);
         }
@@ -78,10 +84,10 @@ function gotFile(file) {
 
 function modelReady() {
     console.log('Model Ready');
-    mobilenet.classify(gotResults);
 
     if (mode == 0) {
         label = 'Place object in camera view';
+        mobilenet.classify(gotResults);
     }
 }
 
