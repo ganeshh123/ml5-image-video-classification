@@ -103,7 +103,7 @@ function gotResults(error, results) {
     } else {
         result = results[0].label;
         prob = results[0].confidence;
-        label = "Result: " + label + " with a probability of " + prob;
+        label = "Result: " + result + " with a probability of " + prob;
         console.log(label);
 
         if (mode == 0) {
