@@ -99,6 +99,7 @@ function gotResults(error, results) {
         result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + label + " with a probability of " + prob;
+        console.log(label);
 
         if (mode == 0) {
             mobilenet.classify(gotResults);
