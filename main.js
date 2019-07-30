@@ -43,7 +43,7 @@ function draw() {
 
     background(255);
     fill(0);
-    text(label, 10, 700);
+    text(label, 112, 700);
 
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
@@ -74,6 +74,7 @@ function toggleCamera() {
     mode = 0;
     video = createCapture(VIDEO);
     video.hide();
+    videoclassifier = ml5.imageClassifier('MobileNet', video, modelReady);
 }
 
 function gotFile(file) {
