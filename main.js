@@ -43,7 +43,7 @@ function draw() {
 
     background(255);
     fill(0);
-    text(label, 112, 700);
+    text(label, 112, 630);
 
     if (mode == 0) {
         text('ALLOW CAMERA ACCESS', 300, 300);
