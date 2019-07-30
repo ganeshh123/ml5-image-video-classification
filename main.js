@@ -110,7 +110,7 @@ function gotVideoResults(error, results) {
     if (error) {
         console.error(error);
     } else {
-        result = results[0].label;
+        result = getName(results[0].label);
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
 
@@ -125,11 +125,11 @@ function gotVideoResults(error, results) {
 function gotImageResults(error, results) {
     if (error) {
         console.error(error);
-        result = results[0].label;
+        result = getName(results[0].label);
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
     } else {
-        result = results[0].label;
+        result = getName(results[0].label);
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
 
@@ -138,7 +138,7 @@ function gotImageResults(error, results) {
 
 function getName(input) {
     var result = input.split(",", 1);
-    var string = result[1];
+    var string = result[0];
     var output = string.charAt(0).toUpperCase() + string.slice(1);
     return output;
 }
