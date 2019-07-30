@@ -113,7 +113,6 @@ function gotVideoResults(error, results) {
         result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
-        console.log(label);
 
         if (mode == 0) {
             videoclassifier.classify(gotVideoResults);
@@ -129,12 +128,10 @@ function gotImageResults(error, results) {
         result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
-        console.log(label);
     } else {
         result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
-        console.log(label);
 
     }
 }
