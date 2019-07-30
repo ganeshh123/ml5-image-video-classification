@@ -8,7 +8,8 @@ let mode = 0;
 let img;
 let video;
 
-let mobilenet;
+let videoclassifier;
+let imageclassifier;
 
 let label = '';
 let result = ' ';
@@ -33,7 +34,7 @@ function setup() {
         video = createCapture(VIDEO);
         video.hide();
         label = "Please wait, connecting...";
-        mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
+        videoclassifier = ml5.imageClassifier('MobileNet', video, modelReady);
     }
 
     if (mode == 1) {
@@ -63,11 +64,10 @@ function toggleImage() {
     video.hide();
     clear();
     mobilenet = null;
-    background(0, 0, 0);
-    label = "Please wait, connecting...";
+    background(255);
+    label = "Drag and Drop an Image Here";
     mode = 1;
-    dropzone = rect(112, 0, 800, 600);
-    dropzone.fill(255);
+    imageclassifier = ml5.imageClassifier('MobileNet', modelLoaded);
 }
 
 function toggleCamera() {
@@ -84,20 +84,25 @@ function gotFile(file) {
     video.hide();
     img = createImg(file.data).hide();
     if (img) {
-        mobilenet = ml5.imageClassifier('MobileNet', img, modelReady);
+        imageclassifier = ml5.imageClassifier('MobileNet', img, modelReady);
     }
 }
 
 function modelReady() {
-    console.log('Model Ready');
+    console.log(' Video Model Ready');
 
-    if (mode == 0) {
-        label = 'Place object in camera view';
-        mobilenet.classify(gotResults);
-    }
+    label = 'Place object in camera view';
+    videoclassifier.classify(gotVideoResults);
 }
 
-function gotResults(error, results) {
+function modelLoaded() {
+    console.log('Image Model Ready');
+    label = 'Analysing Image';
+    imageclassifier.predict(img, gotImageResults);
+
+}
+
+function gotVideoResults(error, results) {
     if (error) {
         console.error(error);
     } else {
@@ -112,4 +117,16 @@ function gotResults(error, results) {
 
     }
 
+}
+
+function gotImageResults(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        result = results[0].label;
+        prob = results[0].confidence;
+        label = "Result: " + result + " with a probability of " + prob;
+        console.log(label);
+
+    }
 }
