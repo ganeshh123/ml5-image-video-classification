@@ -112,7 +112,7 @@ function gotVideoResults(error, results) {
         console.log(label);
 
         if (mode == 0) {
-            mobilenet.classify(gotResults);
+            videoclassifier.classify(gotResults);
         }
 
     }
