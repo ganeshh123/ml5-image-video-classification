@@ -3,7 +3,7 @@ let canvasMain;
 let canvasMainWidth;
 let canvasMainHeight;
 
-let mode = 1;
+let mode = 0;
 
 let img;
 let video;
