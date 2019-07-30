@@ -13,7 +13,7 @@ let imageclassifier; // The ml5 model to analyse the image
 
 let label = ''; // The text to be displayed in the UI
 let result = ' '; // The result of the ml5 analysis
-let prob; // The probability of the result of the ml5 analysis
+let prob = ''; // The probability of the result of the ml5 analysis
 
 
 function setup() {
@@ -111,8 +111,8 @@ function gotVideoResults(error, results) {
         console.error(error);
     } else {
         result = getName(results[0].label);
-        prob = results[0].confidence;
-        label = "Result: " + result + " with a probability of " + prob;
+        prob = getPercentage(results[0].confidence);
+        label = result + " with a probability of " + prob + "%";
 
         if (mode == 0) {
             videoclassifier.classify(gotVideoResults);
@@ -126,12 +126,12 @@ function gotImageResults(error, results) {
     if (error) {
         console.error(error);
         result = getName(results[0].label);
-        prob = results[0].confidence;
-        label = "Result: " + result + " with a probability of " + prob;
+        prob = getPercentage(results[0].confidence);
+        label = result + " with a probability of " + prob + "%";
     } else {
         result = getName(results[0].label);
-        prob = results[0].confidence;
-        label = "Result: " + result + " with a probability of " + prob;
+        prob = getPercentage(results[0].confidence);
+        label = result + " with a probability of " + prob + "%";
 
     }
 }
@@ -140,5 +140,11 @@ function getName(input) {
     var result = input.split(",", 1);
     var string = result[0];
     var output = string.charAt(0).toUpperCase() + string.slice(1);
+    return output;
+}
+
+function getPercentage(input) {
+    var result = input * 100;
+    var output = result.toFixed(2);
     return output;
 }
