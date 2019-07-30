@@ -106,7 +106,7 @@ function gotVideoResults(error, results) {
     if (error) {
         console.error(error);
     } else {
-        result = getName(results[0].label);
+        result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
         console.log(label);
@@ -122,12 +122,12 @@ function gotVideoResults(error, results) {
 function gotImageResults(error, results) {
     if (error) {
         console.error(error);
-        result = getName(results[0].label);
+        result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
         console.log(label);
     } else {
-        result = getName(results[0].label);
+        result = results[0].label;
         prob = results[0].confidence;
         label = "Result: " + result + " with a probability of " + prob;
         console.log(label);
