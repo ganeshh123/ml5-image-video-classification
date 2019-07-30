@@ -43,7 +43,6 @@ function draw() {
 
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
-        text(label, 100, 700);
     }
 
     if (mode == 1) {
