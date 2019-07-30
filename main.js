@@ -1,45 +1,42 @@
-let canvasDOM;
-let canvasMain;
-let canvasMainWidth;
-let canvasMainHeight;
+let canvasDOM; // The Canvas Div from the HTML Page
+let canvasMain; // The p5 canvas
+let canvasMainWidth; // The width of the p5 canvas
+let canvasMainHeight; // The height of the p5 canvas
 
-let mode = 0;
+let mode = 0; // The current mode, 0 = video, 1 = image
 
-let img;
-let video;
+let img; // The temporary image to analyse
+let video; // The video feed to analyse
 
-let videoclassifier;
-let imageclassifier;
+let videoclassifier; // The ml5 model to analyse the video
+let imageclassifier; // The ml5 model to analyse the image
 
-let label = '';
-let result = ' ';
-let prob;
+let label = ''; // The text to be displayed in the UI
+let result = ' '; // The result of the ml5 analysis
+let prob; // The probability of the result of the ml5 analysis
 
 
 function setup() {
-    canvasDOM = document.getElementById('canvasMain');
-    canvasMainWidth = canvasDOM.offsetWidth;
-    canvasMainHeight = canvasDOM.offsetHeight;
+    canvasDOM = document.getElementById('canvasMain'); // Get the Canvas div
+    canvasMainWidth = canvasDOM.offsetWidth; // Set width of canvas
+    canvasMainHeight = canvasDOM.offsetHeight; // Set height of canvas
 
 
-    canvasMain = createCanvas(canvasMainWidth, canvasMainHeight);
-    canvasMain.parent('canvasMain');
-    canvasMain.drop(gotFile);
-    background(255);
+    canvasMain = createCanvas(canvasMainWidth, canvasMainHeight); // Draw the canvas
+    canvasMain.parent('canvasMain'); // Place it in the div
+    canvasMain.drop(gotFile); // Set the function to be run on drag-drop
+    background(255); // Make the background white
 
-    textSize(28);
-    fill(0);
+    textSize(28); // Set the text size
+    fill(0); // Set the text colour
 
-    if (mode == 0) {
-        video = createCapture(VIDEO);
-        video.hide();
-        label = "Please wait, connecting...";
-        videoclassifier = ml5.imageClassifier('MobileNet', video, modelReady);
+    if (mode == 0) { // When in video mode..
+        video = createCapture(VIDEO); // Set video to be the webcam feed
+        video.hide(); // And hide it
+        label = "Please wait, connecting..."; // Set the message to tell the user the model is loading
+        videoclassifier = ml5.imageClassifier('MobileNet', video, modelReady); // Create an imageclassifier model using MobileNet, feeding it the videom and running modelReady on completion
     }
 
-    if (mode == 1) {
-        label = "Please wait, connecting...";
-    }
 }
 
 function draw() {
@@ -63,7 +60,7 @@ function draw() {
 function toggleImage() {
     video.hide();
     clear();
-    mobilenet = null;
+    videoclassifier = null;
     background(255);
     label = "Drag and Drop an Image Here";
     mode = 1;
@@ -83,8 +80,10 @@ function gotFile(file) {
     mode = 1;
     video.hide();
     img = createImg(file.data).hide();
+    label = 'Analysing, please wait';
+    imageclassifier = ml5.imageClassifier('MobileNet', modelLoaded);
     if (img) {
-        imageclassifier = ml5.imageClassifier('MobileNet', img, modelReady);
+        imageclassifier.predict(img, gotImageResults);
     }
 }
 
@@ -97,9 +96,9 @@ function modelReady() {
 
 function modelLoaded() {
     console.log('Image Model Ready');
-    label = 'Analysing Image';
-    imageclassifier.predict(img, gotImageResults);
-
+    if (img) {
+        imageclassifier.predict(img, gotImageResults);
+    }
 }
 
 function gotVideoResults(error, results) {
@@ -112,7 +111,7 @@ function gotVideoResults(error, results) {
         console.log(label);
 
         if (mode == 0) {
-            videoclassifier.classify(gotResults);
+            videoclassifier.classify(gotVideoResults);
         }
 
     }
