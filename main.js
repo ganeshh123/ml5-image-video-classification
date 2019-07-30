@@ -46,6 +46,7 @@ function draw() {
     text(label, 112, 700);
 
     if (mode == 0) {
+        text('ALLOW CAMERA ACCESS', 300, 300);
         image(video, 112, 0, 800, 600);
     }
 
@@ -115,7 +116,7 @@ function gotVideoResults(error, results) {
         label = result + " with a probability of " + prob + "%";
 
         if (mode == 0) {
-            videoclassifier.classify(gotVideoResults);
+            window.setTimeout(videoclassifier.classify(gotVideoResults), 1000);
         }
 
     }
