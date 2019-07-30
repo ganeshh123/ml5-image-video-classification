@@ -54,7 +54,7 @@ function draw() {
             image(img, 112, 0, 800, 600);
         } else {
             fill(0);
-            text('DROP AN IMAGE HERE', 500, 300);
+            text('DROP AN IMAGE HERE', 300, 300);
         }
     }
 
@@ -67,7 +67,6 @@ function toggleImage() {
     clear();
     videoclassifier = null;
     background(255);
-    text('DROP AN IMAGE HERE', 500, 300);
     mode = 1;
     imageclassifier = ml5.imageClassifier('MobileNet', modelLoaded);
 }
