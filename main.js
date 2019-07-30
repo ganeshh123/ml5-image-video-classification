@@ -52,12 +52,16 @@ function draw() {
     if (mode == 1) {
         if (img) {
             image(img, 112, 0, 800, 600);
+        } else {
+            fill(0);
+            text('DROP AN IMAGE HERE', 500, 300);
         }
     }
 
 }
 
 function toggleImage() {
+    mode = 1;
     video.hide();
     clear();
     videoclassifier = null;
