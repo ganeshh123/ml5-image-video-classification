@@ -121,6 +121,10 @@ function gotVideoResults(error, results) {
 function gotImageResults(error, results) {
     if (error) {
         console.error(error);
+        result = results[0].label;
+        prob = results[0].confidence;
+        label = "Result: " + result + " with a probability of " + prob;
+        console.log(label);
     } else {
         result = results[0].label;
         prob = results[0].confidence;
