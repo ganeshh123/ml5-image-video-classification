@@ -26,7 +26,7 @@ function setup() {
     canvasMain.drop(gotFile);
     background(0, 0, 0);
 
-    textSize(64);
+    textSize(28);
     fill(255);
 
     if (mode == 0) {
@@ -45,7 +45,7 @@ function draw() {
 
     background(0);
     fill(255);
-    text(label, 100, 700);
+    text(label, 10, 700);
 
     if (mode == 0) {
         image(video, 112, 0, 800, 600);
