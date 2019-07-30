@@ -24,10 +24,10 @@ function setup() {
     canvasMain = createCanvas(canvasMainWidth, canvasMainHeight);
     canvasMain.parent('canvasMain');
     canvasMain.drop(gotFile);
-    background(0, 0, 0);
+    background(255);
 
     textSize(28);
-    fill(255);
+    fill(0);
 
     if (mode == 0) {
         video = createCapture(VIDEO);
@@ -43,8 +43,8 @@ function setup() {
 
 function draw() {
 
-    background(0);
-    fill(255);
+    background(255);
+    fill(0);
     text(label, 10, 700);
 
     if (mode == 0) {
