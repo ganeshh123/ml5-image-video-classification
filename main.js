@@ -43,6 +43,8 @@ function setup() {
 
 function draw() {
 
+    background(0);
+    fill(255);
     text(label, 100, 700);
 
     if (mode == 0) {
