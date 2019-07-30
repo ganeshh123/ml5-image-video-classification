@@ -116,7 +116,9 @@ function gotVideoResults(error, results) {
         label = result + " with a probability of " + prob + "%";
 
         if (mode == 0) {
-            window.setTimeout(videoclassifier.classify(gotVideoResults), 1000);
+            setTimeout(function() {
+                videoclassifier.classify(gotVideoResults);
+            }, 500);
         }
 
     }
