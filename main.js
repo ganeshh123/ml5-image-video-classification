@@ -62,6 +62,7 @@ function toggleImage() {
     clear();
     videoclassifier = null;
     background(255);
+    text('DROP AN IMAGE HERE', 500, 300);
     label = "Drag and Drop an Image Here";
     mode = 1;
     imageclassifier = ml5.imageClassifier('MobileNet', modelLoaded);
