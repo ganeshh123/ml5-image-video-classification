@@ -27,7 +27,6 @@ function setup() {
     background(0, 0, 0);
 
     textSize(64);
-    text(label, 100, 700);
     fill(255);
 
     if (mode == 0) {
