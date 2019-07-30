@@ -3,7 +3,7 @@ let canvasMain;
 let canvasMainWidth;
 let canvasMainHeight;
 
-let mode = 0;
+let mode = 1;
 
 let img;
 let video;
@@ -34,6 +34,10 @@ function setup() {
         video.hide();
         label = "Please wait, connecting...";
         mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
+    }
+
+    if (mode == 1) {
+        label = "Please wait, connecting...";
     }
 }
 
